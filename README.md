@@ -13,7 +13,7 @@ Parameter                           | Description                               
 Country                             | Name of the country in english                                        | __X__
 City                                | Name of the city in english                                           | __X__
 Units                               | Units you want to use either Metric/Celcius or Imperial/Fahrenheit    | __X__
-Numbers of day to display           | Numbers of day to display 1 (current day) or 5                        | __X__
+Numbers of days to display          | Numbers of days to display 1 (current day) or 5                       | __X__
 Display wind information            | Will add wind speed and feels like temperature to the widget          |
 Display atmosphere information      | Will add humidity and pressure to the widget                          |
 Display astronomy information       | Will add sunset and sunrise time to the widget                        |
