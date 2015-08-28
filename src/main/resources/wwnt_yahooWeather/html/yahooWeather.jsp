@@ -146,7 +146,7 @@
                     '<hr />' +
                 '<@ } @>' +
                 '<div class="ww-block12 ww-block-5days">' +
-                    '<div class="gallery js-flickity">' +
+                    '<div class="gallery-weather-widget js-flickity">' +
                         '<@ _.each(query.results.channel.item.forecast, function(element) { @>' +
                             '<div class="gallery-cell">' +
                                 '<h6>' +
@@ -186,8 +186,8 @@
     $(document).ready(function() {
         $.get('<c:url value="${url.base}${functions:escapePath(currentNode.path)}.updateWeather.json"/>', function(result) {
             $('#ww_${currentNode.identifier}').html(yahooWeatherWidgetTemplate(result));
-            if ($('.gallery') !== undefined) {
-                var $gallery = $('.gallery').flickity();
+            if ($('.gallery-weather-widget') !== undefined) {
+                var $gallery = $('.gallery-weather-widget').flickity();
                 $gallery.data('flickity').options.autoPlay = true;
                 $gallery.flickity('reloadCells');
             }
