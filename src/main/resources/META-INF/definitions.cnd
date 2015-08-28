@@ -1,0 +1,16 @@
+<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
+<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+
+<wwnt = 'http://www.jahia.org/jahia/weatherwidget/nt/1.0'>
+<wwmix = 'http://www.jahia.org/jahia/weatherwidget/mix/1.0'>
+
+[wwnt:yahooWeather] > jnt:content, jmix:multimediaContent, mix:title
+ - country (string) mandatory
+ - city (string) mandatory
+ - units (string, choicelist[resourceBundle]) = 'c' mandatory < 'c', 'f'
+ - numbersOfDay (string, choicelist) = '1' mandatory < '1', '5'
+ - wind (boolean)
+ - atmosphere (boolean)
+ - astronomy (boolean)
+ - lastDateUpdate (date) hidden
+ - lastData (string) hidden
