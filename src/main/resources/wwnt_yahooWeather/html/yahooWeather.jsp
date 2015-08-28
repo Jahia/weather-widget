@@ -32,168 +32,170 @@
     <template:addResources type="javascript" resources="i18n/weather-widget-i18n.js"/>
 </c:if>
 
-<script>
-    _.templateSettings = {
-        interpolate: /\<\@\=(.+?)\@\>/gim,
-        evaluate: /\<\@(.+?)\@\>/gim,
-        escape: /\<\@\-(.+?)\@\>/gim
-    };
+<template:addResources type="javascript">
+    <script>
+        _.templateSettings = {
+            interpolate: /\<\@\=(.+?)\@\>/gim,
+            evaluate: /\<\@(.+?)\@\>/gim,
+            escape: /\<\@\-(.+?)\@\>/gim
+        };
 
-    var unit = '${currentNode.properties["units"].string}';
-    var numbersOfDay = '${currentNode.properties["numbersOfDay"].string}';
-    var displayWind = ${currentNode.properties["wind"].boolean};
-    var displayAtmosphere = ${currentNode.properties["atmosphere"].boolean};
-    var displayAstronomy = ${currentNode.properties["astronomy"].boolean};
+        var unit = '${currentNode.properties["units"].string}';
+        var numbersOfDay = '${currentNode.properties["numbersOfDay"].string}';
+        var displayWind = ${currentNode.properties["wind"].boolean};
+        var displayAtmosphere = ${currentNode.properties["atmosphere"].boolean};
+        var displayAstronomy = ${currentNode.properties["astronomy"].boolean};
 
-    var yahooWeatherWidgetTemplate = _.template('<@ var currentDate = moment().locale("${currentResource.locale}"); @>' +
-        '<div class="ww-box-full">' +
-            '<@ if (displayAstronomy || numbersOfDay === "1") { @>' +
-                '<h6><@= weatherWidgetI18n["wwnt_yahooWeather.today"] @> (<@= currentDate.format("ll") @>) <@= query.results.channel.location.city @>, <@= query.results.channel.location.country @></h6>' +
-            '<@ } @>' +
-            '<@ if (displayAstronomy) { @>' +
-            '<@ var sunriseTime = moment(currentDate.format("ll") + query.results.channel.astronomy.sunrise, currentDate._locale._longDateFormat.ll + "H:m a").locale("${currentResource.locale}").format("LT") @>' +
-                '<div class="ww-block4">' +
-                    '<div class="ww-block12 ww-lineUp">' +
-                        '<i class="wi wi-sunrise wi-3x ww-color-sunny" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.sunriseTime\'] @>"></i>' +
-                    '</div>' +
-                    '<div class="ww-block12">' +
-                        '<p><@= sunriseTime @></p>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="ww-block4">' +
-            '<@ } @>' +
-            '<@ if (displayAstronomy || numbersOfDay === "1") { @>' +
-                '<@ if (!displayAstronomy) { @>' +
-                    '<div class="ww-block10">' +
+        var yahooWeatherWidgetTemplate = _.template('<@ var currentDate = moment().locale("${currentResource.locale}"); @>' +
+            '<div class="ww-box-full">' +
+                '<@ if (displayAstronomy || numbersOfDay === "1") { @>' +
+                    '<h6><@= weatherWidgetI18n["wwnt_yahooWeather.today"] @> (<@= currentDate.format("ll") @>) <@= query.results.channel.location.city @>, <@= query.results.channel.location.country @></h6>' +
                 '<@ } @>' +
-                '<div class="ww-block6">' +
-                    '<div class="ww-block12 ww-lineUp">' +
-                        '<i class="wi wi-yahoo-<@= query.results.channel.item.forecast[0].code @> wi-3x<@ if (query.results.channel.item.forecast[0].code == 32) { @> wi-spin-6s<@ } @>"></i>' +
-                    '</div>' +
-                    '<div class="ww-block12">' +
-                        '<p><@= weatherWidgetI18n["wwnt_yahooWeather.code." + query.results.channel.item.forecast[0].code] @></p>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="ww-block6 ww-lineUp">' +
-                    '<div class="ww-block6">' +
-                        '<@= query.results.channel.item.forecast[0].high @>' +
-                        '<br />' +
-                        '<@= query.results.channel.item.forecast[0].low @>' +
-                    '</div>' +
-                    '<div class="ww-block6">' +
-                        '<@ if (unit === "c") { @>' +
-                            '<i class="wi wi-celsius wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
-                        '<@ } else { @>' +
-                            '<i class="wi wi-fahrenheit wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
-                        '<@ } @>' +
-                    '</div>' +
-                '</div>' +
-            '</div>' +
-            '<@ } @>' +
-            '<@ if (displayAstronomy) { @>' +
-            '<@ var sunsetTime = moment(currentDate.format("ll") + query.results.channel.astronomy.sunset, currentDate._locale._longDateFormat.ll + "H:m a").locale("${currentResource.locale}").format("LT") @>' +
-                '<div class="ww-block4">' +
-                '<div class="ww-block12 ww-lineUp">' +
-                    '<i class="wi wi-sunset wi-3x ww-color-sunny" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.sunsetTime\'] @>"></i>' +
-                '</div>' +
-                '<div class="ww-block12">' +
-                    '<p><@= sunsetTime @></p>' +
-                '</div>' +
-                '</div>' +
-            '<@ } @>' +
-            '<@ if (displayAtmosphere || displayWind) { @>' +
-                '<hr />' +
-                '<@ if (displayAtmosphere && displayWind) { @>' +
-                    '<div class="ww-block12">' +
-                '<@ } @>' +
-                '<@ if (displayAtmosphere) { @>' +
-                    '<div class="ww-block6">' +
-                        '<div class="ww-block6">' +
-                            '<i class="wi wi-humidity wi-2x ww-color-shower" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.atmosphereHumidity\'] @>"></i>' +
-                            '<br /><@= query.results.channel.atmosphere.humidity @>' +
+                '<@ if (displayAstronomy) { @>' +
+                '<@ var sunriseTime = moment(currentDate.format("ll") + query.results.channel.astronomy.sunrise, currentDate._locale._longDateFormat.ll + "H:m a").locale("${currentResource.locale}").format("LT") @>' +
+                    '<div class="ww-block4">' +
+                        '<div class="ww-block12 ww-lineUp">' +
+                            '<i class="wi wi-sunrise wi-3x ww-color-sunny" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.sunriseTime\'] @>"></i>' +
                         '</div>' +
-                        '<div class="ww-block6">' +
-                            '<i class="wi wi-barometer wi-2x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.atmospherePressure\'] @>"></i>' +
-                            '<br /><@= query.results.channel.atmosphere.pressure @> ' +
-                            '<@= query.results.channel.units.pressure @>' +
+                        '<div class="ww-block12">' +
+                            '<p><@= sunriseTime @></p>' +
                         '</div>' +
                     '</div>' +
+                    '<div class="ww-block4">' +
                 '<@ } @>' +
-                '<@ if (displayWind) { @>' +
+                '<@ if (displayAstronomy || numbersOfDay === "1") { @>' +
+                    '<@ if (!displayAstronomy) { @>' +
+                        '<div class="ww-block10">' +
+                    '<@ } @>' +
                     '<div class="ww-block6">' +
+                        '<div class="ww-block12 ww-lineUp">' +
+                            '<i class="wi wi-yahoo-<@= query.results.channel.item.forecast[0].code @> wi-3x<@ if (query.results.channel.item.forecast[0].code == 32) { @> wi-spin-6s<@ } @>"></i>' +
+                        '</div>' +
+                        '<div class="ww-block12">' +
+                            '<p><@= weatherWidgetI18n["wwnt_yahooWeather.code." + query.results.channel.item.forecast[0].code] @></p>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="ww-block6 ww-lineUp">' +
                         '<div class="ww-block6">' +
-                            '<i class="wi wi-thermometer wi-2x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.feelsLikeTemperature\'] @>"></i>' +
-                            '<br /><@= query.results.channel.wind.chill @> ' +
+                            '<@= query.results.channel.item.forecast[0].high @>' +
+                            '<br />' +
+                            '<@= query.results.channel.item.forecast[0].low @>' +
+                        '</div>' +
+                        '<div class="ww-block6">' +
                             '<@ if (unit === "c") { @>' +
-                                '<i class="wi wi-celsius wi-lg"></i>' +
+                                '<i class="wi wi-celsius wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
                             '<@ } else { @>' +
-                                '<i class="wi wi-fahrenheit wi-lg"></i>' +
+                                '<i class="wi wi-fahrenheit wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
                             '<@ } @>' +
                         '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<@ } @>' +
+                '<@ if (displayAstronomy) { @>' +
+                '<@ var sunsetTime = moment(currentDate.format("ll") + query.results.channel.astronomy.sunset, currentDate._locale._longDateFormat.ll + "H:m a").locale("${currentResource.locale}").format("LT") @>' +
+                    '<div class="ww-block4">' +
+                    '<div class="ww-block12 ww-lineUp">' +
+                        '<i class="wi wi-sunset wi-3x ww-color-sunny" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.sunsetTime\'] @>"></i>' +
+                    '</div>' +
+                    '<div class="ww-block12">' +
+                        '<p><@= sunsetTime @></p>' +
+                    '</div>' +
+                    '</div>' +
+                '<@ } @>' +
+                '<@ if (displayAtmosphere || displayWind) { @>' +
+                    '<hr />' +
+                    '<@ if (displayAtmosphere && displayWind) { @>' +
+                        '<div class="ww-block12">' +
+                    '<@ } @>' +
+                    '<@ if (displayAtmosphere) { @>' +
                         '<div class="ww-block6">' +
-                            '<i class="wi wi-strong-wind wi-2x ww-color-windy" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.windSpeed\'] @>"></i>' +
-                            '<br /><@= query.results.channel.wind.speed @> ' +
-                            '<@= query.results.channel.units.speed @>' +
+                            '<div class="ww-block6">' +
+                                '<i class="wi wi-humidity wi-2x ww-color-shower" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.atmosphereHumidity\'] @>"></i>' +
+                                '<br /><@= query.results.channel.atmosphere.humidity @>' +
+                            '</div>' +
+                            '<div class="ww-block6">' +
+                                '<i class="wi wi-barometer wi-2x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.atmospherePressure\'] @>"></i>' +
+                                '<br /><@= query.results.channel.atmosphere.pressure @> ' +
+                                '<@= query.results.channel.units.pressure @>' +
+                            '</div>' +
+                        '</div>' +
+                    '<@ } @>' +
+                    '<@ if (displayWind) { @>' +
+                        '<div class="ww-block6">' +
+                            '<div class="ww-block6">' +
+                                '<i class="wi wi-thermometer wi-2x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.feelsLikeTemperature\'] @>"></i>' +
+                                '<br /><@= query.results.channel.wind.chill @> ' +
+                                '<@ if (unit === "c") { @>' +
+                                    '<i class="wi wi-celsius wi-lg"></i>' +
+                                '<@ } else { @>' +
+                                    '<i class="wi wi-fahrenheit wi-lg"></i>' +
+                                '<@ } @>' +
+                            '</div>' +
+                            '<div class="ww-block6">' +
+                                '<i class="wi wi-strong-wind wi-2x ww-color-windy" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.windSpeed\'] @>"></i>' +
+                                '<br /><@= query.results.channel.wind.speed @> ' +
+                                '<@= query.results.channel.units.speed @>' +
+                            '</div>' +
+                        '</div>' +
+                    '<@ } @>' +
+                    '<@ if (displayAtmosphere && displayWind) { @>' +
+                        '</div>' +
+                    '<@ } @>' +
+                '<@ } @>' +
+                '<@ if (numbersOfDay === "5") { @>' +
+                    '<@ if (displayAstronomy || numbersOfDay === "1") { @>' +
+                        '<hr />' +
+                    '<@ } @>' +
+                    '<div class="ww-block12 ww-block-5days">' +
+                        '<div class="gallery-weather-widget js-flickity">' +
+                            '<@ _.each(query.results.channel.item.forecast, function(element) { @>' +
+                                '<div class="gallery-cell">' +
+                                    '<h6>' +
+                                        '<@= currentDate.format("ll") @>' +
+                                    '</h6>' +
+                                    '<div class="ww-block5">' +
+                                        '<div class="ww-block12 ww-lineUp">' +
+                                            '<i class="wi wi-yahoo-<@= element.code @> wi-3x<@ if (element.code == 32) { @> wi-spin-6s<@ } @>"></i>' +
+                                        '</div>' +
+                                        '<div class="ww-block12">' +
+                                            '<p><@= weatherWidgetI18n["wwnt_yahooWeather.code." + element.code] @></p>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="ww-block5 ww-lineUp">' +
+                                        '<div class="ww-block6">' +
+                                            '<@= element.high @>' +
+                                            '<br />' +
+                                            '<@= element.low @>' +
+                                            '</div>' +
+                                        '<div class="ww-block6">' +
+                                            '<@ if (unit === "c") { @>' +
+                                                '<i class="wi wi-celsius wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
+                                            '<@ } else { @>' +
+                                                '<i class="wi wi-fahrenheit wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
+                                            '<@ } @>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<@ currentDate = currentDate.add(1, "days"); @>' +
+                            '<@ }); @>' +
                         '</div>' +
                     '</div>' +
                 '<@ } @>' +
-                '<@ if (displayAtmosphere && displayWind) { @>' +
-                    '</div>' +
-                '<@ } @>' +
-            '<@ } @>' +
-            '<@ if (numbersOfDay === "5") { @>' +
-                '<@ if (displayAstronomy || numbersOfDay === "1") { @>' +
-                    '<hr />' +
-                '<@ } @>' +
-                '<div class="ww-block12 ww-block-5days">' +
-                    '<div class="gallery-weather-widget js-flickity">' +
-                        '<@ _.each(query.results.channel.item.forecast, function(element) { @>' +
-                            '<div class="gallery-cell">' +
-                                '<h6>' +
-                                    '<@= currentDate.format("ll") @>' +
-                                '</h6>' +
-                                '<div class="ww-block5">' +
-                                    '<div class="ww-block12 ww-lineUp">' +
-                                        '<i class="wi wi-yahoo-<@= element.code @> wi-3x<@ if (element.code == 32) { @> wi-spin-6s<@ } @>"></i>' +
-                                    '</div>' +
-                                    '<div class="ww-block12">' +
-                                        '<p><@= weatherWidgetI18n["wwnt_yahooWeather.code." + element.code] @></p>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="ww-block5 ww-lineUp">' +
-                                    '<div class="ww-block6">' +
-                                        '<@= element.high @>' +
-                                        '<br />' +
-                                        '<@= element.low @>' +
-                                        '</div>' +
-                                    '<div class="ww-block6">' +
-                                        '<@ if (unit === "c") { @>' +
-                                            '<i class="wi wi-celsius wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
-                                        '<@ } else { @>' +
-                                            '<i class="wi wi-fahrenheit wi-3x" title="<@= weatherWidgetI18n[\'wwnt_yahooWeather.temperatureLowHigh\'] @>"></i>' +
-                                        '<@ } @>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                            '<@ currentDate = currentDate.add(1, "days"); @>' +
-                        '<@ }); @>' +
-                    '</div>' +
-                '</div>' +
-            '<@ } @>' +
-        '</div>');
+            '</div>');
 
 
-    $(document).ready(function() {
-        $.get('<c:url value="${url.base}${functions:escapePath(currentNode.path)}.updateWeather.json"/>', function(result) {
-            $('#ww_${currentNode.identifier}').html(yahooWeatherWidgetTemplate(result));
-            if ($('.gallery-weather-widget') !== undefined) {
-                var $gallery = $('.gallery-weather-widget').flickity();
-                $gallery.data('flickity').options.autoPlay = true;
-                $gallery.flickity('reloadCells');
-            }
-        }, 'json');
-    });
-</script>
+        $(document).ready(function() {
+            $.get('<c:url value="${url.base}${functions:escapePath(currentNode.path)}.updateWeather.json"/>', function(result) {
+                $('#ww_${currentNode.identifier}').html(yahooWeatherWidgetTemplate(result));
+                if ($('.gallery-weather-widget') !== undefined) {
+                    var $gallery = $('.gallery-weather-widget').flickity();
+                    $gallery.data('flickity').options.autoPlay = true;
+                    $gallery.flickity('reloadCells');
+                }
+            }, 'json');
+        });
+    </script>
+</template:addResources>
 
 <div class="ww-text-center">
     <c:choose>
